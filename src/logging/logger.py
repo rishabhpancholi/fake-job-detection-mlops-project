@@ -4,7 +4,7 @@ from logging.handlers import RotatingFileHandler
 from logging import StreamHandler,Formatter,Logger,INFO
 
 # Package imports
-from src.logging.settings import LoggerSettings
+from .settings import LoggerSettings
 
 def get_logger(name: str,level: Literal[20]=INFO)->Logger:
     """Function for creating a logger object"""
