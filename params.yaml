@@ -1,0 +1,2 @@
+data_ingestion:
+  TRAIN_TEST_RATIO: 0.1

@@ -5,11 +5,11 @@ class CustomException(Exception):
     """Custom exception class for the project"""
     def __init__(self, error_message: Exception, error_detail:sys):
         super().__init__(str(error_message))
-        self.error_message = str(error_message)
-        self.error_detail = error_detail
+        self.error_message:str = str(error_message)
+        self.error_detail:sys = error_detail
         _,_,exc_tb = self.error_detail.exc_info() # Extracts the traceback
-        self.line_number = exc_tb.tb_lineno # Extracts the line number
-        self.file_name = exc_tb.tb_frame.f_code.co_filename # Extracts the file name
+        self.line_number:int = exc_tb.tb_lineno # Extracts the line number
+        self.file_name:str = exc_tb.tb_frame.f_code.co_filename # Extracts the file name
 
     def get_detailed_message(self)->str:
         """Gets the detailed formatted error message"""
