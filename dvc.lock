@@ -1,0 +1,18 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python -m src.steps.data_ingestion
+    deps:
+    - path: data/archive.zip
+      hash: md5
+      md5: 10eba3155403284972a917d4fda4d4c8
+      size: 2204934
+    params:
+      params.yaml:
+        data_ingestion.TRAIN_TEST_RATIO: 0.1
+    outs:
+    - path: artifacts/data_ingestion/
+      hash: md5
+      md5: 4c54dff2142a9c670b6c85b0b5d937e5.dir
+      size: 5575611
+      nfiles: 2
