@@ -5,12 +5,14 @@ from pathlib import Path
 from src.constants import *
 
 class TrainingPipelineConfig:
+    """Configuration class for training pipeline."""
     def __init__(self):
         self.train_file_path:str = TRAIN_FILE_NAME
         self.test_file_path:str = TEST_FILE_NAME
         self.artifacts_folder:str = ARTIFACTS_DIR_NAME
 
 class DataIngestionConfig:
+    """Configuration class for data ingestion."""
     def __init__(self, training_pipeline_config:TrainingPipelineConfig):
         self.data_ingestion_dir_name:str = DATA_INGESTION_DIR_NAME
         self.raw_data_zip_file_path:Path = Path(DATA_INGESTION_RAW_DATA_ZIP_FILE_PATH)

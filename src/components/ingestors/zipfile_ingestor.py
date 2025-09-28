@@ -1,7 +1,7 @@
 # General Imports
 import sys
-import zipfile
 import pandas as pd
+from zipfile import ZipFile
 
 # Package imports
 from src.base import BaseIngestor
@@ -13,7 +13,7 @@ class ZipFileIngestor(BaseIngestor):
     def connect(self):
         """Connects to the zip file"""
         try:
-            self.zip_file = zipfile.ZipFile(self.data_ingestion_config.raw_data_zip_file_path)
+            self.zip_file = ZipFile(self.data_ingestion_config.raw_data_zip_file_path)
         except Exception as e:
             raise CustomException(e,sys) 
 
