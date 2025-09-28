@@ -1,1 +1,1 @@
-# health-and-lifestyle-project
+# health-and-lifestyle-ml-project
