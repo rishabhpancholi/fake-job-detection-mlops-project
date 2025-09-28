@@ -19,10 +19,3 @@ class CustomException(Exception):
     def __str__(self)->str:
         """Returns the formatted error message"""
         return self.get_detailed_message() # Returns the detailed message
-    
-
-if __name__ == "__main__":
-    try:
-        a = 1/0
-    except ZeroDivisionError as e:
-        raise CustomException(e,sys)
