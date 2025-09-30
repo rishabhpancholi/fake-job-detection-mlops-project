@@ -1,18 +1,21 @@
 schema: '2.0'
 stages:
   data_ingestion:
-    cmd: python -m src.steps.data_ingestion
+    cmd: python -m src.stages.data_ingestion
     deps:
-    - path: data/archive.zip
+    - path: data/fake_job_zip.zip
       hash: md5
-      md5: 10eba3155403284972a917d4fda4d4c8
-      size: 2204934
+      md5: 720b87177496c52f028ec184935f8031
+      size: 16868281
     params:
       params.yaml:
         data_ingestion.TRAIN_TEST_RATIO: 0.1
     outs:
-    - path: artifacts/data_ingestion/
+    - path: artifacts/data_ingestion/test.csv
       hash: md5
-      md5: 4c54dff2142a9c670b6c85b0b5d937e5.dir
-      size: 5575611
-      nfiles: 2
+      md5: 469010ab02b95b60b4e81c05fa83e921
+      size: 4852799
+    - path: artifacts/data_ingestion/train.csv
+      hash: md5
+      md5: 12257a422b6ece3d57187a8726b050d3
+      size: 44310155

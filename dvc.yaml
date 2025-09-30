@@ -1,9 +1,10 @@
 stages:
   data_ingestion:
-    cmd: python -m src.steps.data_ingestion
+    cmd: python -m src.stages.data_ingestion
     deps:
-      - data/archive.zip
+      - data/fake_job_zip.zip
     params:
       - data_ingestion.TRAIN_TEST_RATIO
     outs:
-      - artifacts/data_ingestion/
+      - artifacts/data_ingestion/train.csv
+      - artifacts/data_ingestion/test.csv
