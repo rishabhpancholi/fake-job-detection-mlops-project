@@ -8,7 +8,7 @@ from abc import ABC,abstractmethod
 
 # Package imports
 from src.exception import CustomException
-from src.config import TrainingPipelineConfig,DataIngestionConfig
+from src.entities import TrainingPipelineConfig,DataIngestionConfig
 
 class BaseIngestor(ABC):
     """Base class for data ingestors"""
