@@ -20,4 +20,11 @@ class DataIngestionConfig:
         self.train_test_split_ratio:float = DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO
         self.train_file_path:Path = Path(training_pipeline_config.artifacts_folder)/self.data_ingestion_dir_name/training_pipeline_config.train_file_name
         self.test_file_path:Path = Path(training_pipeline_config.artifacts_folder)/self.data_ingestion_dir_name/training_pipeline_config.test_file_name
+
+class DataValidationConfig:
+    """Configuration class for data validation."""
+    def __init__(self, training_pipeline_config:TrainingPipelineConfig):
+        self.data_validation_dir_name:str = DATA_VALIDATION_DIR_NAME
+        self.train_file_path:Path = Path(training_pipeline_config.artifacts_folder)/self.data_validation_dir_name/training_pipeline_config.train_file_name
+        self.test_file_path:Path = Path(training_pipeline_config.artifacts_folder)/self.data_validation_dir_name/training_pipeline_config.test_file_name
         

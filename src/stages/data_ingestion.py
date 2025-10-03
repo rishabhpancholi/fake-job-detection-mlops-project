@@ -33,8 +33,8 @@ class DataIngestion:
             logger.info("Data ingestion completed")
 
             data_ingestion_artifact  = DataIngestionArtifact(
-                train_file_path=self.data_ingestor.data_ingestion_config.train_file_path,
-                test_file_path=self.data_ingestor.data_ingestion_config.test_file_path
+                ingested_train_file_path=self.data_ingestor.data_ingestion_config.train_file_path,
+                ingested_test_file_path=self.data_ingestor.data_ingestion_config.test_file_path
             )
             return data_ingestion_artifact
         except Exception as e:
