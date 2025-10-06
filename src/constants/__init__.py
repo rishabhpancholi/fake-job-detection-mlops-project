@@ -12,6 +12,3 @@ DATA_INGESTION_DIR_NAME: str = "data_ingestion"
 DATA_INGESTION_RAW_DATA_ZIP_FILE_PATH: str = "data/fake_job_zip.zip"
 DATA_INGESTION_RAW_DATA_FILE_NAME:str = "fake_job_postings.csv"
 DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO: float = params["data_ingestion"]["TRAIN_TEST_RATIO"]
-
-"""Data validation related constants"""
-DATA_VALIDATION_DIR_NAME: str = "data_validation"

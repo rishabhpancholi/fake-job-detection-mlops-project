@@ -3,10 +3,9 @@ import sys
 import numpy as np
 import pandas as pd
 from zlib import crc32
-from typing import Tuple
 from abc import ABC,abstractmethod
 
-# Package imports
+# Package Imports
 from src.exception import CustomException
 from src.entities import TrainingPipelineConfig,DataIngestionConfig
 
@@ -35,6 +34,13 @@ class BaseIngestor(ABC):
             return (
                         df
                         .assign(
+                            salary_range = lambda df:(
+                                np.where(
+                                    df.salary_range.isnull(),
+                                    'Not Mentioned',
+                                    'Mentioned'
+                                )
+                            ),
                             text = lambda df:(
                                 df[['title',
                                     'location','department',
@@ -63,7 +69,7 @@ class BaseIngestor(ABC):
         except Exception as e:
             raise CustomException(e,sys)
 
-    def split_data(self,df: pd.DataFrame,id_col: str = "job_id")->Tuple[pd.DataFrame,pd.DataFrame]:
+    def split_data(self,df: pd.DataFrame,id_col: str = "job_id")->tuple[pd.DataFrame,pd.DataFrame]:
         """Splits data into train and test sets"""
         try:
             test_ratio = self.data_ingestion_config.train_test_split_ratio

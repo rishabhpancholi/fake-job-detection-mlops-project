@@ -6,7 +6,6 @@ from src.utils import save_data
 from src.logging import get_logger
 from src.exception import CustomException
 from src.components import ZipFileIngestor
-from src.entities import DataIngestionArtifact
 
 logger = get_logger(name='data_ingestion') # Creates a logger
 
@@ -31,12 +30,6 @@ class DataIngestion:
             save_data(test_df,self.data_ingestor.data_ingestion_config.test_file_path)
             self.data_ingestor.close()
             logger.info("Data ingestion completed")
-
-            data_ingestion_artifact  = DataIngestionArtifact(
-                ingested_train_file_path=self.data_ingestor.data_ingestion_config.train_file_path,
-                ingested_test_file_path=self.data_ingestor.data_ingestion_config.test_file_path
-            )
-            return data_ingestion_artifact
         except Exception as e:
             raise CustomException(e,sys)
         
