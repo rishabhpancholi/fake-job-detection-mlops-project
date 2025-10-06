@@ -13,9 +13,9 @@ stages:
     outs:
     - path: artifacts/data_ingestion/test.csv
       hash: md5
-      md5: 469010ab02b95b60b4e81c05fa83e921
-      size: 4852799
+      md5: b46d1f02b3c352aad58b4dd475c0e5f2
+      size: 4871763
     - path: artifacts/data_ingestion/train.csv
       hash: md5
-      md5: 12257a422b6ece3d57187a8726b050d3
-      size: 44310155
+      md5: d1fc1d32637b52d5809b7eea3aa746dc
+      size: 44482432
