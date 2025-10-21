@@ -1,7 +1,12 @@
 # Imports
+import os
 import yaml
 from pathlib import Path
+from dotenv import load_dotenv
 from get_project_root import root_path
+
+# Loading environment variables
+load_dotenv()
 
 # Loading params
 params = yaml.safe_load(open(Path(root_path(ignore_cwd=False))/"params.yaml"))
@@ -28,7 +33,8 @@ MODEL_TRAINER_MODEL_FILE_NAME: str = "model.joblib"
 MODEL_TRAINER_COUNT_VECTORIZER_MAX_FEATURES: int = params["model_trainer"]["COUNT_VECTORIZER_MAX_FEATURES"]
 MODEL_TRAINER_MODEL_NAME: str = params["model_trainer"]["MODEL_NAME"]
 MODEL_TRAINER_MODEL_PARAMS: dict = params["model_trainer"][MODEL_TRAINER_MODEL_NAME]
-MODEL_TRAINER_EXPERIMENT_NAME: str = "fake_job_detection"
-MODEL_TRAINER_REPO_OWNER: str = "rishabhpancholi"
-MODEL_TRAINER_REPO_NAME: str = "fake-job-detection-mlops-project"
+MODEL_TRAINER_REGISTERED_MODEL_NAME: str = "fake-job-detection-model"
+MODEL_TRAINER_EXPERIMENT_NAME: str = "fake-job-detection-experiment"
+MODEL_TRAINER_REPO_OWNER: str = os.environ["MODEL_TRAINER_REPO_OWNER"]
+MODEL_TRAINER_REPO_NAME: str = os.environ["MODEL_TRAINER_REPO_NAME"]
 MODEL_TRAINER_TARGET_COL: str = "fraudulent"

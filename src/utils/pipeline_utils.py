@@ -37,11 +37,3 @@ class Utility:
         except Exception as e:
             raise CustomException(e,sys)
         
-    @staticmethod
-    def load_joblib_file(path: Path):
-        """Loads the model from a joblib file"""
-        try:
-            return joblib.load(path)
-        except Exception as e:
-            raise CustomException(e,sys)
-        

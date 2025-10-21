@@ -34,6 +34,7 @@ class ModelTrainer:
             self.target_col = MODEL_TRAINER_TARGET_COL
             self.count_vectorizer_max_features = MODEL_TRAINER_COUNT_VECTORIZER_MAX_FEATURES
             self.model_name = MODEL_TRAINER_MODEL_NAME
+            self.registered_model_name = MODEL_TRAINER_REGISTERED_MODEL_NAME
             self.model_params = MODEL_TRAINER_MODEL_PARAMS
             self.mlflow_experiment_name = MODEL_TRAINER_EXPERIMENT_NAME
             self.dagshub_repo_owner = MODEL_TRAINER_REPO_OWNER
@@ -85,14 +86,16 @@ class ModelTrainer:
     def log_experiment(self, model_pipeline: Pipeline, X_train: pd.DataFrame, y_train: pd.Series, X_test: pd.DataFrame, y_test: pd.Series):
         """Logs the parameters and the metrics of the model"""
         try:
-            self.log.info("Logging the parameters and the metrics of the model")
+            self.log.info("Logging the parameters,metrics and model")
             mlflow.log_params(self.model_params)
             y_train_pred = model_pipeline.predict(X_train)
             y_test_pred = model_pipeline.predict(X_test)
             train_f1_score = f1_score(y_train, y_train_pred, pos_label=1)
             test_f1_score = f1_score(y_test, y_test_pred, pos_label=1)
             mlflow.log_metrics({"train_f1_score":train_f1_score,"test_f1_score":test_f1_score})
-            self.log.info("Parameters and metrics logged successfully")
+            signature = mlflow.models.signature.infer_signature(X_train,y_train_pred)
+            mlflow.sklearn.log_model(sk_model=model_pipeline,artifact_path="model",signature=signature,registered_model_name=self.registered_model_name)
+            self.log.info("Parameters,metrics and model logged successfully")
         except Exception as e:
             raise CustomException(e,sys)
         
