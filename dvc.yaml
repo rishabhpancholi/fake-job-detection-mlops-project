@@ -1,0 +1,23 @@
+stages:
+  data_ingestion:
+    cmd: python src/data_ingestion.py
+    deps:
+      - data
+    params:
+      - data_ingestion.TRAIN_TEST_SPLIT_RATIO
+    outs:
+      - artifacts/data_ingestion
+  data_transformation:
+    cmd: python src/stages/data_transformation.py
+    deps:
+      - artifacts/data_ingestion
+    outs:
+      - artifacts/data_transformation
+  model_trainer:
+    cmd: python src/stages/model_trainer.python
+    deps:
+      - artifacts/data_transformation
+    params:
+      - model_trainer
+    outs:
+      - artifacts/model_trainer

@@ -1,0 +1,60 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/data_ingestion.py
+    deps:
+    - path: data
+      hash: md5
+      md5: 1251e3a84a9b974ac9b39f59ffcd44e5.dir
+      size: 16868281
+      nfiles: 1
+    params:
+      params.yaml:
+        data_ingestion.TRAIN_TEST_SPLIT_RATIO: 0.1
+    outs:
+    - path: artifacts/data_ingestion
+      hash: md5
+      md5: d42efad40e4589c353d4f86cb8d641c4.dir
+      size: 94997354
+      nfiles: 3
+  data_transformation:
+    cmd: python src/stages/data_transformation.py
+    deps:
+    - path: artifacts/data_ingestion
+      hash: md5
+      md5: d42efad40e4589c353d4f86cb8d641c4.dir
+      size: 94997354
+      nfiles: 3
+    outs:
+    - path: artifacts/data_transformation
+      hash: md5
+      md5: 426a0c44e44a73e7d061ce3273b6d164.dir
+      size: 67063590
+      nfiles: 3
+  model_trainer:
+    cmd: python src/stages/model_trainer.python
+    deps:
+    - path: artifacts/data_transformation
+      hash: md5
+      md5: 426a0c44e44a73e7d061ce3273b6d164.dir
+      size: 67063590
+      nfiles: 3
+    params:
+      params.yaml:
+        model_trainer:
+          COUNT_VECTORIZER_MAX_FEATURES: 5000
+          MODEL_NAME: lightgbm
+          lightgbm:
+            verbose: -1
+            n_estimators: 335
+            num_leaves: 129
+            max_depth: 9
+            subsample: 0.7017096659989468
+            learning_rate: 0.07692094381576384
+            colsample_bytree: 0.9182904013535718
+    outs:
+    - path: artifacts/model_trainer
+      hash: md5
+      md5: 3b87637cd2731e660a644055eb2abb29.dir
+      size: 2449830
+      nfiles: 1
