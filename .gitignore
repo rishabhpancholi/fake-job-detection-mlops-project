@@ -196,8 +196,6 @@ notebooks/
 
 params.yaml
 
-requirements.txt
-
 tests/
 
 /data
