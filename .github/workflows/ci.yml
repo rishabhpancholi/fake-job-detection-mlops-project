@@ -1,0 +1,43 @@
+# Github Actions Workflow
+name: MLOPS CI
+
+# When this workflow should run
+on:
+  push:
+    branches:
+      - main # Runs the workflow whenever code is pushed to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      MODEL_NAME: ${{ secrets.MODEL_NAME }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      MLFLOW_TRACKING_USERNAME: ${{ secrets.MLFLOW_TRACKING_USERNAME }}
+      MLFLOW_TRACKING_PASSWORD: ${{ secrets.MLFLOW_TRACKING_PASSWORD }}
+      MODEL_TRAINER_REPO_OWNER: ${{ secrets.MODEL_TRAINER_REPO_OWNER }}
+      MODEL_TRAINER_REPO_NAME: ${{ secrets.MODEL_TRAINER_REPO_NAME }}
+
+    steps: # Steps that run inside this job
+      # Step 1: Checkout the repository to the runner
+      - name: Checkout repository
+        uses: actions/checkout@v4 # Official GitHub action to clone your repo
+
+      # Step 2: Set up a specific Python version for the environment
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      # Step 3: Install project dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip    
+          pip install --no-cache-dir -r requirements.txt
+
+      # Step 4: Run all tests using pytest
+      - name: Run tests
+        run: |
+          pytest -v

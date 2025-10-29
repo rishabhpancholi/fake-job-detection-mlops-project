@@ -5,11 +5,14 @@ from sklearn.pipeline import Pipeline
 # Package Imports
 from api.config import APIConfig
 
+# APIConfig
+config = APIConfig()
+
 class ModelLoaderError(Exception):
     """Custom exception for model loading errors"""
     pass
 
-def load_model(config: APIConfig)-> Pipeline:
+def load_model(config: APIConfig=config)-> Pipeline:
     """Loads the model from the mlflow model registry"""
     try:
         uri = f"https://dagshub.com/{config.model_trainer_repo_owner}/{config.model_trainer_repo_name}.mlflow"

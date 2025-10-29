@@ -4,7 +4,6 @@ from fastapi import APIRouter
 from sklearn.pipeline import Pipeline
 
 # Package Imports
-from api.config import APIConfig
 from api.model import load_model,ModelInput,ModelOutput
 from api.services import give_prediction,preprocess_input_data
 
@@ -12,7 +11,7 @@ from api.services import give_prediction,preprocess_input_data
 nlp = spacy.load("en_core_web_sm",disable=['parser','ner','textcat'])
 
 # Load Model
-model = load_model(config=APIConfig())
+model = load_model()
 
 prediction_router = APIRouter()
 
