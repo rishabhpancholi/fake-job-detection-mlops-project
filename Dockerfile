@@ -5,7 +5,7 @@ FROM python:3.13
 WORKDIR /api
 
 # Copying the requirements file and install Python dependencies
-COPY requirements.txt .
+COPY app_requirements.txt .
 RUN pip install --no-cache-dir -r app_requirements.txt
 
 # Downloading the small English SpaCy model
