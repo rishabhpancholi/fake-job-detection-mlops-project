@@ -25,11 +25,6 @@ class InputFormat(BaseModel):
     def clean_data(cls,values):
         try:
             if isinstance(values,str):
-                if values == 'Yes':
-                    values = 1
-                elif values == 'No':
-                    values = 0
-                else:
                     values = re.sub(r'[,.!:;]','',values)
                     values = re.sub(r'([a-z])([A-Z])',r'\1 \2',values)
                     values = re.sub(r'[()]','',values)
