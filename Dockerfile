@@ -6,7 +6,7 @@ WORKDIR /api
 
 # Copying the requirements file and install Python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r app_requirements.txt
 
 # Downloading the small English SpaCy model
 RUN python -m spacy download en_core_web_sm
