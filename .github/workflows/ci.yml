@@ -41,21 +41,18 @@ jobs:
           pip install --no-cache-dir -r requirements.txt
           python -m spacy download en_core_web_sm
 
-      # Step 4: Configure DVC credentials
-      - name: Configure DVC
-        run: |
-          export AWS_ACCESS_KEY_ID: ${{ secrets.DVC_REMOTE_ACCESS_KEY_ID }}
-          export AWS_SECRET_ACCESS_KEY: ${{ secrets.DVC_REMOTE_SECRET_ACCESS_KEY }}
-
-      # Step 5: Run the ML pipeline
+      # Step 4: Run the ML pipeline
       - name: Run ML pipeline
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           dvc pull
           dvc repro
           dvc commit
           dvc push
 
-      # Step 6: Run all tests using pytest
+      # Step 5: Run all tests using pytest
       - name: Run tests
         run: |
           pytest -v
