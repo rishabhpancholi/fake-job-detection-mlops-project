@@ -1,7 +1,6 @@
 # General Imports
 import sys
 import mlflow
-import dagshub
 import warnings
 import pandas as pd
 from pathlib import Path
@@ -41,7 +40,9 @@ class ModelTrainer:
             self.dagshub_repo_name = MODEL_TRAINER_REPO_NAME
             self.utils = utils
             self.log = logger
-            dagshub.init(repo_owner=self.dagshub_repo_owner,repo_name=self.dagshub_repo_name,mlflow =True)
+            self.uri = f"https://dagshub.com/{self.dagshub_repo_owner}/{self.dagshub_repo_name}.mlflow"
+            mlflow.set_tracking_uri(self.uri)
+            mlflow.set_registry_uri(self.uri)
             mlflow.set_experiment(self.mlflow_experiment_name)
             self.log.info("Model Trainer started")
         except Exception as e:

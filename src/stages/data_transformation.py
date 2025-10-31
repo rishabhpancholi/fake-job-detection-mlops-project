@@ -33,7 +33,7 @@ class DataTransformation:
             self.log.info("Lemmatizing the text")
             texts = ser.to_list()
             clean_texts = []
-            for doc in self.nlp.pipe(texts,batch_size = 64,n_process = -1):
+            for doc in self.nlp.pipe(texts,batch_size = 64,n_process = 4):
                 tokens = [token.lemma_ for token in doc if not token.is_stop and token.is_alpha]
                 clean_texts.append(' '.join(tokens))
             self.log.info("Text lemmatized successfully")
