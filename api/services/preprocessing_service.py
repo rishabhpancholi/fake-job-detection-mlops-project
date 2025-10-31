@@ -6,7 +6,7 @@ def lemmatize_text(ser: pd.Series,nlp: Language)-> pd.Series:
         """Lemmatizes the text"""
         texts = ser.to_list()
         clean_texts = []
-        for doc in nlp.pipe(texts,batch_size = 64):
+        for doc in nlp.pipe(texts,batch_size = 1):
             tokens = [token.lemma_ for token in doc if not token.is_stop and token.is_alpha]
             clean_texts.append(' '.join(tokens))
         return pd.Series(clean_texts)
