@@ -1,8 +1,0 @@
-#To run the api service with necessary environment variables
-services:
-  api:
-    image: rishabhpancholi/real-fake-job-detection-api:latest
-    env_file:
-      - .env
-    ports:
-      - "8000:8000"
