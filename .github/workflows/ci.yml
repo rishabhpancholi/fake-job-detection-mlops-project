@@ -1,5 +1,5 @@
 # Github Actions Workflow
-name: MLOPS CI
+name: MLOPS CICD
 
 # When this workflow should run
 on:
@@ -8,7 +8,7 @@ on:
       - main # Runs the workflow whenever code is pushed to the main branch
 
 jobs:
-  run_ml_pipeline_and_api_tests:
+  mlops_workflow:
     runs-on: ubuntu-latest
     environment: production
 
@@ -56,3 +56,41 @@ jobs:
       - name: Run tests
         run: |
           pytest -v
+
+      # Step 6: Login to AWS ECR
+      - name: Login to Amazon ECR
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ap-south-1
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      # Step 7: Build and push the Docker image
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: 496203436427.dkr.ecr.ap-south-1.amazonaws.com/rishabhpancholi/real-fake-job-detection-api:latest
+
+      # Step 8:
+      - name: Deploy to EC2 instance
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ap-south-1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            echo "Logging to ECR"
+            aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 496203436427.dkr.ecr.ap-south-1.amazonaws.com
+            echo "Pulling Latest Image"
+            docker pull 496203436427.dkr.ecr.ap-south-1.amazonaws.com/rishabhpancholi/real-fake-job-detection-api:latest
+            echo "Stopping old container"
+            docker-compose down
+            echo "Runing new container"
+            docker-compose up

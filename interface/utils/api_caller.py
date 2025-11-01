@@ -13,7 +13,7 @@ class APICallError(Exception):
 def get_predictions(input: InputFormat)-> dict:
     """Returns the predictions for a given input"""
     try:
-        response = requests.post("https://fake-job-detection-mlops-project.onrender.com/predict",json=input.model_dump(exclude=[
+        response = requests.post("http://3.7.70.247:8000/predict",json=input.model_dump(exclude=[
             "title",
             "location",
             "department",

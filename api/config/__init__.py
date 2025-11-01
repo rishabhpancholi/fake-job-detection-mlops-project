@@ -10,8 +10,6 @@ class APIConfig(BaseSettings):
     mlflow_tracking_password: str
     aws_access_key_id: str
     aws_secret_access_key: str
-    dvc_remote_access_key_id: str
-    dvc_remote_secret_access_key: str
     
     model_config = SettingsConfigDict(env_file=".env")
     
