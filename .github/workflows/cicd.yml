@@ -93,4 +93,4 @@ jobs:
             echo "Stopping old container"
             docker-compose down
             echo "Runing new container"
-            docker-compose up
+            docker-compose up -d
