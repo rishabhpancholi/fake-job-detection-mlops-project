@@ -85,9 +85,9 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             echo "Logging to ECR"
-            aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 496203436427.dkr.ecr.ap-south-1.amazonaws.com
+            aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/j4r9x7x2
             echo "Pulling Latest Image"
-            docker pull 496203436427.dkr.ecr.ap-south-1.amazonaws.com/rishabhpancholi/real-fake-job-detection-api:latest
+            docker pull public.ecr.aws/j4r9x7x2/rishabhpancholi/real-fake-job-detection-api:latest
             echo "Stopping old container"
             docker-compose down
             echo "Runing new container"
