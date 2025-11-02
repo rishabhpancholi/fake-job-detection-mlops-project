@@ -4,6 +4,11 @@ FROM python:3.13-alpine
 # Setting the working directory inside the container
 WORKDIR /api
 
+# Install system dependencies needed by spaCy
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc g++ \
+    && rm -rf /var/lib/apt/lists/*
+
 # Copying the requirements file and install Python dependencies
 COPY app_requirements.txt .
 RUN pip install --no-cache-dir -r app_requirements.txt
