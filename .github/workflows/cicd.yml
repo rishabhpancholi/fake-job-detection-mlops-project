@@ -86,9 +86,9 @@ jobs:
           script: |
             echo "Logging to ECR"
             aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/j4r9x7x2
-            echo "Pulling Latest Image"
-            docker pull public.ecr.aws/j4r9x7x2/rishabhpancholi/real-fake-job-detection-api:latest
             echo "Stopping old container"
             docker-compose down
+            echo "Removing old image"
+            docker image prune -af
             echo "Runing new container"
-            docker-compose up -d
+            docker-compose up -d --pull always
