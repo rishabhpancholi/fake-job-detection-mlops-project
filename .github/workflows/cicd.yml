@@ -90,5 +90,5 @@ jobs:
             docker-compose down
             echo "Removing old image"
             docker image prune -af
-            echo "Runing new container"
-            docker-compose up -d --pull always
+            echo "Running new container"
+            docker-compose up -d
