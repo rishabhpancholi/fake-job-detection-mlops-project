@@ -60,11 +60,9 @@ jobs:
       # Step 6: Login to AWS ECR
       - name: Login to Amazon ECR
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ap-south-1
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+          AWS_REGION: us-east-1
+        run: |
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/j4r9x7x2
 
       # Step 7: Build and push the Docker image
       - name: Build and push Docker image
@@ -72,7 +70,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: 496203436427.dkr.ecr.ap-south-1.amazonaws.com/rishabhpancholi/real-fake-job-detection-api:latest
+          tags: public.ecr.aws/j4r9x7x2/rishabhpancholi/real-fake-job-detection-api:latest
 
       # Step 8:
       - name: Deploy to EC2 instance
