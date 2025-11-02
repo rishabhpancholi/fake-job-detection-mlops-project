@@ -1,5 +1,5 @@
 # Base python image
-FROM python:3.13-alpine
+FROM python:3.13-slim
 
 # Setting the working directory inside the container
 WORKDIR /api
