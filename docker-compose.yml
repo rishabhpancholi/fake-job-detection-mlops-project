@@ -1,6 +1,6 @@
 services:
   real-fake-job-detection-api:
-    image: 496203436427.dkr.ecr.ap-south-1.amazonaws.com/rishabhpancholi/real-fake-job-detection-api:latest
+    image: public.ecr.aws/j4r9x7x2/rishabhpancholi/real-fake-job-detection-api:latest
     container_name: real-fake-job-detection-api
     ports:
       - "8000:8000"
